@@ -59,14 +59,23 @@ cd ultron
 git clone https://github.com/open-jarvis/OpenJarvis.git
 cd OpenJarvis && uv sync && cd ..
 
-# 3. Install Laya
+# 3. Install Laya (checkpoint download is slow — start this early, on good wifi)
 pip install "laya[mcp]"
 
-# 4. Copy this repo's configs/ over the OpenJarvis agent config, then
-./OpenJarvis/scripts/quickstart.sh
+# 4. Run OpenJarvis's own setup against its defaults — nothing custom yet
+cd OpenJarvis && ./scripts/quickstart.sh
+#   (Windows: this is a bash script. Run it from Git Bash or WSL, not plain
+#   PowerShell/cmd. If neither is available, ask your coding agent to read the
+#   script and run its steps manually — it's mostly `uv run jarvis init`,
+#   starting the API server, and `npm run dev` in frontend/.)
 
-# 5. Connect Gmail + Calendar
-cd OpenJarvis && jarvis connect gdrive
+# 5. Connect Gmail + Calendar (one OAuth flow covers Gmail, Calendar and Tasks,
+#    despite the "gdrive" name)
+jarvis connect gdrive
+
+# 6. Only once the above all works: build this project's own configs/ (Laya
+#    question set, orchestrator wiring) and layer it on — see docs/configs.md
+#    (added once that step is built, not part of initial setup)
 ```
 
 Environment variables (API keys, OAuth client IDs) go in a local `.env` file —
