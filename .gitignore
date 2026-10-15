@@ -1,0 +1,56 @@
+# --- Secrets ---
+.env
+.env.*
+*.key
+*credentials*.json
+*token*.json
+client_secret*.json
+
+# --- OpenJarvis (cloned as a dependency, not vendored) ---
+OpenJarvis/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+build/
+
+# --- Node / frontend ---
+node_modules/
+.next/
+.vite/
+frontend/dist/
+
+# --- Rust (if building OpenJarvis's native extension locally) ---
+target/
+Cargo.lock.bak
+
+# --- Laya model cache (large, don't commit) ---
+.cache/huggingface/
+*.safetensors
+*.bin
+*.ckpt
+
+# --- Voice output / scratch audio ---
+*.wav
+*.mp3
+!assets/voice/*.wav
+!assets/voice/*.mp3
+
+# --- Local data / test seeds that may contain real info ---
+local_data/
+*.sqlite3
+*.db
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
