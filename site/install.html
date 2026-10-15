@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ultron - install your personal AI agent</title>
+  <meta name="description" content="Ultron gives Claude Code a memory vault, a voice, a face, and optional hands. Here is how to install it on Windows.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f5f1;
+      --surface: #ffffff;
+      --ink: #15171a;
+      --ink-soft: #4b5059;
+      --rule: #dcdad2;
+      --accent: #0f7a57;
+      --accent-ink: #ffffff;
+      --code-bg: #15171a;
+      --code-ink: #e8ece9;
+      --radius: 10px;
+      --gutter: 16px;
+      --measure: 66ch;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #101214;
+        --surface: #16191c;
+        --ink: #ecefec;
+        --ink-soft: #a4aba6;
+        --rule: #2a2f2c;
+        --accent: #3fd49a;
+        --accent-ink: #0b0d0c;
+        --code-bg: #0b0d0c;
+        --code-ink: #d9f3e6;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #101214;
+      --surface: #16191c;
+      --ink: #ecefec;
+      --ink-soft: #a4aba6;
+      --rule: #2a2f2c;
+      --accent: #3fd49a;
+      --accent-ink: #0b0d0c;
+      --code-bg: #0b0d0c;
+      --code-ink: #d9f3e6;
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: var(--accent); text-underline-offset: 3px; }
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    /* Header */
+    .top { border-bottom: 1px solid var(--rule); }
+    .top .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 64px;
+      flex-wrap: wrap;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+    .mark {
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      font-size: 18px;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav { display: flex; gap: 20px; flex-wrap: wrap; font-size: 15px; }
+    .nav a { color: var(--ink-soft); text-decoration: none; }
+    .nav a:hover { color: var(--ink); }
+
+    /* Hero */
+    .hero { padding: 72px 0 56px; }
+    h1 {
+      font-size: clamp(2.1rem, 5.4vw, 3.6rem);
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      margin: 0 0 20px;
+      max-width: 18ch;
+    }
+    .lede {
+      font-size: 1.15rem;
+      color: var(--ink-soft);
+      max-width: var(--measure);
+      margin: 0 0 28px;
+    }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 15px;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+    }
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--accent-ink);
+    }
+    .btn:hover { opacity: 0.9; }
+
+    /* Sections */
+    section { padding: 48px 0; border-top: 1px solid var(--rule); }
+    h2 {
+      font-size: clamp(1.45rem, 3vw, 1.9rem);
+      letter-spacing: -0.01em;
+      margin: 0 0 12px;
+      line-height: 1.2;
+    }
+    .sub { color: var(--ink-soft); max-width: var(--measure); margin: 0 0 28px; }
+
+    /* Components list (not cards) */
+    .parts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; }
+    .parts li {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4px;
+      padding: 18px 0;
+      border-top: 1px solid var(--rule);
+    }
+    .parts li:last-child { border-bottom: 1px solid var(--rule); }
+    .parts strong { font-size: 1.05rem; }
+    .parts span { color: var(--ink-soft); }
+    .tag {
+      font-family: "Geist Mono", ui-monospace, monospace;
+      font-size: 13px;
+      color: var(--accent);
+    }
+
+    /* Requirements */
+    .reqs { margin: 0; padding-left: 20px; }
+    .reqs li { margin-bottom: 8px; }
+
+    /* Steps */
+    .steps { list-style: none; margin: 0; padding: 0; }
+    .step {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 0 16px;
+      padding: 28px 0;
+      border-top: 1px solid var(--rule);
+    }
+    .step:first-child { border-top: 0; padding-top: 0; }
+    .num {
+      font-family: "Geist Mono", ui-monospace, monospace;
+      font-size: 15px;
+      color: var(--accent);
+      padding-top: 2px;
+    }
+    .step h3 { font-size: 1.15rem; margin: 0 0 8px; line-height: 1.3; }
+    .step p { margin: 0 0 12px; color: var(--ink-soft); max-width: var(--measure); }
+    .step p:last-child { margin-bottom: 0; }
+
+    pre {
+      position: relative;
+      background: var(--code-bg);
+      color: var(--code-ink);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin: 12px 0 0;
+      overflow-x: auto;
+      font-family: "Geist Mono", ui-monospace, Consolas, monospace;
+      font-size: 13.5px;
+      line-height: 1.55;
+    }
+    pre code { font-family: inherit; white-space: pre; }
+    .copy {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font: inherit;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: transparent;
+      color: var(--code-ink);
+      cursor: pointer;
+    }
+    .copy:hover { border-color: var(--accent); color: var(--accent); }
+
+    code.inline {
+      font-family: "Geist Mono", ui-monospace, monospace;
+      font-size: 0.9em;
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: 5px;
+      padding: 1px 5px;
+      color: var(--ink);
+    }
+
+    .fix { display: grid; gap: 0; }
+    .fix div { padding: 16px 0; border-top: 1px solid var(--rule); }
+    .fix div:last-child { border-bottom: 1px solid var(--rule); }
+    .fix strong { display: block; margin-bottom: 4px; }
+    .fix span { color: var(--ink-soft); }
+
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 28px 0 40px;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; }
+
+    @media (min-width: 720px) {
+      .parts { grid-template-columns: 1fr 1fr; column-gap: 40px; }
+      .parts li { grid-template-columns: 110px 1fr; align-items: baseline; gap: 16px; }
+      .parts li:last-child { border-bottom: 0; }
+      .parts li:nth-last-child(2) { border-bottom: 1px solid var(--rule); }
+      .fix { grid-template-columns: 1fr 1fr; column-gap: 40px; }
+      .fix div:last-child { border-bottom: 0; }
+    }
+    @media (max-width: 480px) {
+      .hero { padding: 48px 0 40px; }
+      .btn { width: 100%; text-align: center; }
+      .step { grid-template-columns: 1fr; gap: 6px; }
+      .num { padding-top: 0; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .btn { transition: opacity 0.2s ease; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top">
+    <div class="wrap">
+      <a class="mark" href="#top">Ultron</a>
+      <nav class="nav" aria-label="Page sections">
+        <a href="#what">What it is</a>
+        <a href="#before">Before you start</a>
+        <a href="#install">Install</a>
+        <a href="#fix">Troubleshooting</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="wrap">
+      <div class="hero">
+        <h1>Your own AI agent, running on your own Windows PC.</h1>
+        <p class="lede">Ultron gives Claude Code a memory vault, a push-to-talk voice, a live face, and optional hand tracking. Everything runs on your computer, and your notes stay in your own folder.</p>
+        <div class="actions">
+          <a class="btn primary" href="#install">Start the install</a>
+          <a class="btn" href="https://github.com/Ortholm10/Ultron">View the code on GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <section id="what">
+      <div class="wrap">
+        <h2>What you get</h2>
+        <p class="sub">Four parts that work together. The first two are the core. The face and hands are extras you can add.</p>
+        <ul class="parts">
+          <li>
+            <span class="tag">Memory</span>
+            <div><strong>An Obsidian vault</strong><br><span>Plain-text notes that the agent reads at the start of every chat and updates as you work.</span></div>
+          </li>
+          <li>
+            <span class="tag">Voice</span>
+            <div><strong>Push-to-talk</strong><br><span>Hold one key, speak, and release. The agent answers out loud with a local voice.</span></div>
+          </li>
+          <li>
+            <span class="tag">Face</span>
+            <div><strong>A live visualizer</strong><br><span>A browser page that shows whether the agent is idle, listening, thinking, or speaking.</span></div>
+          </li>
+          <li>
+            <span class="tag">Hands</span>
+            <div><strong>Hand tracking, optional</strong><br><span>Move notes and images on screen with your hands, using your webcam.</span></div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="before">
+      <div class="wrap">
+        <h2>Before you start</h2>
+        <p class="sub">Check these first. The voice and hands use your own microphone and webcam, so they only work on the computer where you install them.</p>
+        <ul class="reqs">
+          <li>Windows 10 or Windows 11</li>
+          <li>A paid Claude plan. Pro works. Free accounts do not include Claude Code.</li>
+          <li>About 3 GB of free disk space, for Python packages and speech models</li>
+          <li>A microphone and speakers for the voice</li>
+          <li>A webcam and Google Chrome, only if you want the hands</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="install">
+      <div class="wrap">
+        <h2>Install, step by step</h2>
+        <p class="sub">Run each step in order. Most steps are one command. Restart PowerShell after step 1 so the new tools are on your PATH.</p>
+
+        <ol class="steps">
+          <li class="step">
+            <span class="num">01</span>
+            <div>
+              <h3>Install the tools</h3>
+              <p>Open PowerShell and run these four lines.</p>
+              <pre><code>winget install --id Git.Git -e
+winget install --id Obsidian.Obsidian -e
+winget install --id eSpeak-NG.eSpeak-NG -e
+irm https://astral.sh/uv/install.ps1 | iex</code></pre>
+            </div>
+          </li>
+          <li class="step">
+            <span class="num">02</span>
+            <div>
+              <h3>Install Claude Code and sign in</h3>
+              <p>Get Claude Code from <a href="https://claude.com/claude-code">claude.com/claude-code</a>. Then run <code class="inline">claude</code> in any terminal, choose <strong>Claude account with subscription</strong>, and log in when your browser opens.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="num">03</span>
+            <div>
+              <h3>Copy the Ultron components into one folder</h3>
+              <p>This creates a folder called <code class="inline">my-agent</code> on your Desktop and copies the parts into it.</p>
+              <pre><code>mkdir $HOME\Desktop\my-agent
+git clone https://github.com/Ortholm10/Ultron.git $HOME\Desktop\ultron-clone
+Copy-Item -Recurse $HOME\Desktop\ultron-clone\ultron-agent\* $HOME\Desktop\my-agent\</code></pre>
+            </div>
+          </li>
+          <li class="step">
+            <span class="num">04</span>
+            <div>
+              <h3>Create your memory vault</h3>
+              <p>In Obsidian, choose <strong>Create new vault</strong> and name it, for example <code class="inline">Ultron Brain</code>. Put it in your user folder, not in OneDrive or Documents. Then open <code class="inline">my-agent</code> in Claude Code and say:</p>
+              <pre><code>read ai-memory-vault\ai-memory-vault.md and set me up</code></pre>
+              <p>Answer its questions. It builds the vault and writes your <code class="inline">CLAUDE.md</code>.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="num">05</span>
+            <div>
+              <h3>Configure the voice</h3>
+              <p>In <code class="inline">backtalk</code>, copy <code class="inline">backtalk.json.example</code> to <code class="inline">backtalk.json</code>. Set <code class="inline">agent_dir</code> to your <code class="inline">my-agent</code> folder, <code class="inline">name</code> to your agent's name, <code class="inline">extra_dirs</code> to your vault, and <code class="inline">ptt_key</code> to the key you hold to talk. Set <code class="inline">permission_mode</code> to <code class="inline">"ask"</code> so it checks before it acts.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="num">06</span>
+            <div>
+              <h3>Install the voice engine and speech models</h3>
+              <p>This downloads about 1 GB on the first run only.</p>
+              <pre><code>cd $HOME\Desktop\my-agent\backtalk
+$uv = "$HOME\.local\bin\uv.exe"
+&amp; $uv venv .venv
+&amp; $uv pip install --python .venv\Scripts\python.exe -e .</code></pre>
+            </div>
+          </li>
+          <li class="step">
+            <span class="num">07</span>
+            <div>
+              <h3>Configure the face</h3>
+              <p>In <code class="inline">ai-visualizer</code>, copy <code class="inline">ai-visualizer.json.example</code> to <code class="inline">ai-visualizer.json</code>. Set <code class="inline">name</code> to your agent's name and <code class="inline">bus_dir</code> to the full path of your <code class="inline">backtalk</code> folder.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="num">08</span>
+            <div>
+              <h3>Configure the hands, optional</h3>
+              <p>In <code class="inline">barehands</code>, copy <code class="inline">barehands.json.example</code> to <code class="inline">barehands.json</code>. Set <code class="inline">name</code> and point the Notes folder at your vault.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="num">09</span>
+            <div>
+              <h3>Create three Desktop launchers</h3>
+              <p>Save these as <code class="inline">.bat</code> files on your Desktop. Replace <code class="inline">&lt;you&gt;</code> with your Windows user name.</p>
+              <pre><code>Chat with Ultron.bat
+  cd /d "C:\Users\&lt;you&gt;\Desktop\my-agent"
+  claude
+
+Talk to Ultron.bat
+  call "C:\Users\&lt;you&gt;\Desktop\my-agent\fullstack-agent\start.bat" voice
+
+Ultron barehands.bat
+  call "C:\Users\&lt;you&gt;\Desktop\my-agent\fullstack-agent\start.bat" hands</code></pre>
+            </div>
+          </li>
+          <li class="step">
+            <span class="num">10</span>
+            <div>
+              <h3>Test it</h3>
+              <p>Double-click <strong>Talk to Ultron</strong>. A console window opens, the voice loads, and the face opens in your browser. Hold your talk key, speak, and release. The agent answers out loud.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="fix">
+      <div class="wrap">
+        <h2>If something goes wrong</h2>
+        <p class="sub">These are the problems people hit most often.</p>
+        <div class="fix">
+          <div>
+            <strong>Nothing happens when I hold the talk key</strong>
+            <span>Click the console window once so it has focus. Check that <code class="inline">ptt_key</code> in <code class="inline">backtalk.json</code> matches a key your keyboard has, then restart the window.</span>
+          </div>
+          <div>
+            <strong>The console shows a cublas64_12.dll warning</strong>
+            <span>It is harmless. Add <code class="inline">"stt_device": "cpu"</code> to <code class="inline">backtalk.json</code> to skip the check.</span>
+          </div>
+          <div>
+            <strong>The hands page is black or the ring does not move</strong>
+            <span>Open the page in Chrome, allow camera access, and close any other app that uses the webcam, such as Zoom or Teams.</span>
+          </div>
+          <div>
+            <strong>The face does not open</strong>
+            <span>Open <code class="inline">http://127.0.0.1:8790/faces/board/</code> in your browser. If that page loads, the face works, and the launcher just did not open it.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>Ultron is open source. Each component keeps its own license, listed in its folder on GitHub.</span>
+      <a href="https://github.com/Ortholm10/Ultron">github.com/Ortholm10/Ultron</a>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll("pre").forEach(function (block) {
+      var button = document.createElement("button");
+      button.className = "copy";
+      button.type = "button";
+      button.textContent = "Copy";
+      button.addEventListener("click", function () {
+        var text = block.querySelector("code").innerText;
+        try {
+          navigator.clipboard.writeText(text).then(function () {
+            button.textContent = "Copied";
+            setTimeout(function () { button.textContent = "Copy"; }, 1500);
+          }, function () {
+            button.textContent = "Select and copy";
+          });
+        } catch (err) {
+          button.textContent = "Select and copy";
+        }
+      });
+      block.appendChild(button);
+    });
+  </script>
+</body>
+</html>

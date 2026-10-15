@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Intelligence Designed To Evolve</title>
+  <meta name="description" content="Ultron gives Claude Code a memory vault, a push-to-talk voice, a live face, and optional hand tracking, all on your own Windows PC.">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos" rel="stylesheet">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <video class="bg-video" autoplay muted loop playsinline>
+      <source
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260809_012548_ef22562c-c0ae-4816-ad9d-f8922af4e6a7.mp4"
+        type="video/mp4" />
+    </video>
+  </div>
+
+  <div class="page">
+    <header class="topbar anim" style="--d: 0s">
+      <a class="logo" href="#" aria-label="Ultron home">
+        <img src="assets/logo.svg" width="52" height="52" alt="">
+      </a>
+
+      <nav class="nav-pill" aria-label="Primary">
+        <a class="is-active" href="#" aria-current="page">Home</a>
+        <a href="install.html">Setup</a>
+        <a href="https://github.com/Ortholm10/Ultron">Repository</a>
+      </nav>
+
+      <a class="signin" href="https://github.com/Ortholm10/Ultron">GitHub</a>
+
+      <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <div class="menu-overlay" hidden></div>
+    <div class="menu-sheet" id="mobile-menu" hidden>
+      <a class="is-active" href="#">Home</a>
+      <a href="install.html">Setup</a>
+      <a href="https://github.com/Ortholm10/Ultron">Repository</a>
+      <a class="menu-signin" href="https://github.com/Ortholm10/Ultron">GitHub</a>
+    </div>
+
+    <main class="hero">
+      <div class="trust anim" style="--d: 0.05s">
+        <span class="avatar a1"><span class="avatar-inner"><i class="fa-brands fa-github"></i></span></span>
+        <span class="avatar a2"><span class="avatar-inner"><i class="fa-brands fa-windows"></i></span></span>
+        <span class="avatar a3"><span class="avatar-inner"><i class="fa-solid fa-microphone"></i></span></span>
+        <span class="trust-pill">Open source on GitHub</span>
+      </div>
+
+      <h1 class="headline anim">
+        <span class="line l1">Ultron</span>
+        <span class="line l2">Your AI, on your PC</span>
+      </h1>
+
+      <p class="subhead anim" style="--d: 0.28s">
+        Ultron gives Claude Code a memory vault, a push-to-talk voice, a live face, and optional hand tracking, all on your own Windows PC.
+      </p>
+
+      <a class="cta anim" style="--d: 0.4s" href="install.html">Get Started</a>
+    </main>
+
+    <footer class="stats">
+      <div class="stat anim" style="--d: 0.5s">
+        <span class="stat-icon">#</span>
+        <span class="stat-value" data-target="10" data-decimals="0" data-suffix="">10</span>
+        <span class="stat-label">Setup steps</span>
+      </div>
+      <div class="stat anim" style="--d: 0.58s">
+        <span class="stat-icon">*</span>
+        <span class="stat-value" data-target="5" data-decimals="0" data-suffix="">5</span>
+        <span class="stat-label">Components</span>
+      </div>
+      <div class="stat anim" style="--d: 0.66s">
+        <span class="stat-icon">&lt;</span>
+        <span class="stat-value" data-target="3" data-decimals="0" data-suffix=" GB">3 GB</span>
+        <span class="stat-label">Disk space needed</span>
+      </div>
+      <div class="stat anim" style="--d: 0.74s">
+        <span class="stat-icon">%</span>
+        <span class="stat-value" data-target="1" data-decimals="0" data-suffix=" GB">1 GB</span>
+        <span class="stat-label">Speech models download</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
