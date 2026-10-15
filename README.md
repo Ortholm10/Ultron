@@ -50,6 +50,13 @@ Gmail inbox → Laya triage → flagged? → LLM extracts deadline → calendar 
 Python, OpenJarvis, Laya, React (OpenJarvis's bundled frontend), Gmail/Calendar
 connectors via Google OAuth, text-to-speech.
 
+## Landing page
+
+The landing page and step-by-step install guide live in [`site/`](site/) and are hosted at
+https://ultron-one-xi.vercel.app. The install guide is at
+https://ultron-one-xi.vercel.app/install.html. It is a static site (HTML, CSS, and vanilla JS),
+so it needs no build step. To run it locally, open `site/index.html` in a browser.
+
 ## Ultron agent setup
 
 The `ultron-agent/` folder contains four components that work together, plus the
